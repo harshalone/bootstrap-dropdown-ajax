@@ -3,7 +3,7 @@ bootstrap dropdown ajax
 Inline-style: 
 ![alt text](bootstrap-dropdown.png "Logo Title Text 1")
 
-
+[Live Demo](https://harshalone.github.io/bootstrap-dropdown-ajax/)
 
 ## Very easy to use bootstrap and jquery based dropdown with selector.
 
