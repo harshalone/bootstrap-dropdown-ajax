@@ -22,8 +22,10 @@ use below code in your html
 ```
 
 ##Here 
-"hDrop_search" = is the selector class.
-API_URL        = is your API url from where you get your dropdown json
-return_field_name = is your return field name of the field you want to show in your dropdown
-value_field_name  = is your value field name
+1. "hDrop_search" = is the selector class.
+2. API_URL        = is your API url from where you get your dropdown json
+3. return_field_name = is your return field name of the field you want to show in your dropdown
+4. value_field_name  = is your value field name
+
+
 
