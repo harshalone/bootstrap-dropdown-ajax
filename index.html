@@ -1,0 +1,107 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<style>
+.h_cursor_pointer{
+cursor: pointer;
+}
+</style>
+<body>
+
+
+<div class="container mt-4">
+  <!-- Content here -->
+  
+  
+<!-- hdrop starts here --> 
+<div class="hDrop_search" API_URL="https://restcountries.eu/rest/v2/name/" return_field_name="name" value_field_name="value" > 
+	<div class="input-group mt-3">
+	  <input type="text" class="form-control q" placeholder="Type name and hit search" id="q" aria-describedby="basic-addon2"> 
+	  <div class="input-group-append">
+		<span class="input-group-text search h_cursor_pointer" id="search">Search</span>
+	  </div>
+	</div>
+
+	 <ul class="list-group"> 
+	</ul>
+</div>
+<!-- hdrop ends here -->  
+ 
+
+</div>
+
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+
+$(function(){
+	
+	$('.hDrop_search').each(function(i, obj) {
+	    
+	    console.log($(obj).find('.q').val()); 
+		
+		$(obj).on("click", ".hitem", function (e) {
+			console.log($(this).text());
+			$(obj).find('.q').val($(this).text());
+			$(obj).find('ul').empty()
+		});
+		
+		$(obj).on("click", ".search", function (e) {
+			console.log(this.id);
+			 
+					e.preventDefault(); // prevent form from reloading page 
+					var api_url    = $(obj).attr('API_URL'); 
+					var q          = $(obj).find('.q').val();
+					var item_name  = $(obj).attr('return_field_name');
+					var item_value = $(obj).attr('value_field_name');
+					
+					if(q.length >= 3){
+					$.ajax({
+						'url' : api_url+q,
+						'type' : 'GET', 
+						beforeSend: function() {
+						   
+						},
+						error: function(jqXHR, textStatus, errorThrown) { 
+							if(jqXHR.status == 404 || errorThrown == 'Not Found') 
+							{ 
+							  var res = JSON.parse(JSON.stringify(jqXHR.responseJSON));
+							  console.log(res.message); 
+							  alert('Not Found. Please try again!');
+							}
+						},
+						'success' : function(data) {
+							console.log(data);
+							$.each(data, function(index) {
+								console.log(data[index][item_name]); 
+								
+								$(obj).find('ul').append('<li class="list-group-item hitem h_cursor_pointer">'+data[index][item_name]+'</li>');
+							});
+						}
+					});
+					}else{
+						alert('Please type min 3 character!');
+					}
+					
+			 
+			
+			
+		});
+
+
+	 
+	 }); 
+ 
+});
+ 
+</script>
+
+</html>
